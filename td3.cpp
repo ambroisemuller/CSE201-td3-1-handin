@@ -15,6 +15,9 @@ double* extend_array(double* array, int length, int new_size) {
     for (int i = 0; i < length; i++) {
         new_array[i] = array[i];
     };
+    for (int i = length; i < new_size; i++) {
+        new_array[i] = 0;
+    };
 
     delete array;
 
