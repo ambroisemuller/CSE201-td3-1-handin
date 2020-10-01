@@ -60,7 +60,7 @@ double* remove_from_array(double* array,
 
     if (current_size == max_size - 5) {
         array = shrink_array(array, max_size, max(0, max_size - 5));
-        max_size -= 5;
+        max_size = max(0, max_size - 5);
     }
 
     return array;
