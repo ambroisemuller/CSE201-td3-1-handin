@@ -74,7 +74,6 @@ bool simulate_projectile(const double magnitude, const double angle,
                          double* &telemetry,
                          int &telemetry_current_size,
                          int &telemetry_max_size) {
-  // YOU CAN MODIFY THIS FUNCTION TO RECORD THE TELEMETRY
 
   bool hit_target, hit_obstacle;
   double v0_x, v0_y, x, y, t;
@@ -112,11 +111,43 @@ bool simulate_projectile(const double magnitude, const double angle,
   return hit_target;
 }
 
+void sort(double *telemetry, const int telemetry_current_size) {
+
+    double temp1;
+    double temp2;
+    double temp3;
+
+    for (int n = 0; n < (telemetry_current_size / 3) - 1; n++) {
+        for (int m = 0; m < (telemetry_current_size / 3) - 1 - n; m++) {
+            if (telemetry[3*m] > telemetry[3*m + 3]) {
+                temp1 = telemetry[3*m + 3];
+                temp2 = telemetry[3*m + 4];
+                temp3 = telemetry[3*m + 5];
+                telemetry[3*m + 3] = telemetry[3*m];
+                telemetry[3*m + 4] = telemetry[3*m + 1];
+                telemetry[3*m + 5] = telemetry[3*m + 2];
+                telemetry[3*m] = temp1;
+                telemetry[3*m + 1] = temp2;
+                telemetry[3*m + 2] = temp3;
+            };
+        };
+    };
+}
+
 void merge_telemetry(double **telemetries,
                      int tot_telemetries,
                      int *telemetries_sizes,
                      double* &telemetry,
                      int &telemetry_current_size,
                      int &telemetry_max_size) {
-  // IMPLEMENT YOUR FUNCTION HERE
+
+
+    for (int i = 0; i < tot_telemetries; i++) {
+        for (int j = 0; j < telemetries_sizes[i]; j++) {
+            telemetry = append_to_array(telemetries[i][j], telemetry, telemetry_current_size, telemetry_max_size);
+        };
+    };
+
+    sort(telemetry, telemetry_current_size);
+
 }
